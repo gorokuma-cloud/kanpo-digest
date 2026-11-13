@@ -173,13 +173,13 @@ def build_discord_embed(date_str, page_url, kanpo_data):
         })
 
     embed = {
-        "title": f"📜 官報 前日まとめ（{date_str} 発行分）",
+        "title": f"📜 官報 当日まとめ（{date_str} 発行分）",
         "url": page_url,
-        "description": "内閣府 官報発行サイトより、前営業日に公布・告示された重要事項をダイジェストでお届けします。",
+        "description": "内閣府 官報発行サイトより、本日発行された重要事項を速報ダイジェストでお届けします。",
         "color": 3447003,
         "fields": fields,
         "footer": {
-            "text": "官報 毎朝ダイジェスト配信 • 内閣府公式準拠"
+            "text": "官報 朝刊速報ダイジェスト配信 • 内閣府公式準拠"
         }
     }
     return embed
@@ -206,11 +206,8 @@ def main():
         print("Error: No kanpo issue found.")
         sys.exit(1)
 
-    # 毎朝実行される前提：
-    # days[0] は当日（本日発行分）、days[1] が前営業日（前日発行分）となる。
-    # 週末や早朝（8:30前）で当日分が未発行の場合は days[0] が直近発行分。
-    target_idx = 1 if len(days) > 1 else 0
-    date_str, rel_url = days[target_idx]
+    # 当日分（days[0] = 最新・本日発行分）を取得
+    date_str, rel_url = days[0]
 
     print(f"Target issue: {date_str} ({rel_url})")
     full_url, kanpo_data = fetch_kanpo_contents(rel_url)

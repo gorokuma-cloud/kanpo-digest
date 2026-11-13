@@ -2,8 +2,8 @@ name: Daily Kanpo Digest to Discord
 
 on:
   schedule:
-    # 毎朝 日本時間 8:00 (UTC 23:00) に自動実行
-    - cron: '0 23 * * *'
+    # 毎朝 日本時間 8:35 (UTC 23:35) に自動実行（官報は平日 8:30 発行）
+    - cron: '35 23 * * *'
   workflow_dispatch: # 手動実行トリガー
 
 jobs:
